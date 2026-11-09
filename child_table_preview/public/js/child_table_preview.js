@@ -15,7 +15,40 @@
         const injectedStyle = document.createElement("style");
         injectedStyle.id = "child-preview-injected-styles";
         injectedStyle.textContent = `
-            .child-hover-preview img,
+            .preview-avatar-wrap {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                margin-bottom: 12px !important;
+                flex-shrink: 0 !important;
+            }
+            .preview-avatar-link {
+                display: inline-block !important;
+                border-radius: 50% !important;
+                text-decoration: none !important;
+                line-height: 0 !important;
+                cursor: pointer !important;
+            }
+            .preview-avatar {
+                display: block !important;
+                width: 64px !important;
+                height: 64px !important;
+                min-width: 64px !important;
+                min-height: 64px !important;
+                max-width: 64px !important;
+                max-height: 64px !important;
+                border-radius: 50% !important;
+                border: 2px solid var(--border-color, #d1d8dd) !important;
+                object-fit: cover !important;
+                background: var(--control-bg, #f4f5f6) !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+                transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+            }
+            .preview-avatar:hover {
+                transform: scale(1.06) !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18) !important;
+            }
+            .preview-fields img,
             .preview-field img,
             .preview-field-value img,
             .preview-thumbnail {
@@ -262,10 +295,13 @@
 
     function extract_image_url(val) {
         if (!val || typeof val !== "string") return "";
-        const str = val.trim();
+        let str = val.trim();
         const match = str.match(/<img[^>]+src=["']([^"']+)["']/i);
         if (match && match[1]) {
-            return match[1];
+            str = match[1];
+        }
+        if (str && !str.startsWith("http") && !str.startsWith("/") && !str.startsWith("data:")) {
+            str = "/" + str;
         }
         return str;
     }
@@ -671,10 +707,63 @@
             return;
         }
 
+        // Find any image belonging to this row to display as top circular avatar
+        let primaryImageUrl = "";
+
+        // 1. Check allFields for an image field
+        const imgField = allFields.find(
+            (f) => f.is_image && f.raw_value && f.raw_value !== "-" && f.raw_value !== "null"
+        );
+        if (imgField) {
+            primaryImageUrl = extract_image_url(imgField.raw_value);
+        }
+
+        // 2. Check direct row properties if not found
+        if (!primaryImageUrl) {
+            const possibleImgKeys = ["image", "item_image", "thumbnail", "photo", "picture", "attach_image"];
+            for (const key of possibleImgKeys) {
+                const val = item[key];
+                if (val && typeof val === "string" && is_image_field(val)) {
+                    primaryImageUrl = extract_image_url(val);
+                    break;
+                }
+            }
+        }
+
+        // 3. Fallback to cached Item document if available
+        if (!primaryImageUrl && item.item_code && window.locals?.["Item"]?.[item.item_code]?.image) {
+            const cachedImg = window.locals["Item"][item.item_code].image;
+            if (is_image_field(cachedImg)) {
+                primaryImageUrl = extract_image_url(cachedImg);
+            }
+        }
+
+        let avatarHtml = "";
+        if (primaryImageUrl) {
+            const cleanUrl = frappe.utils.escape_html(primaryImageUrl);
+            avatarHtml = `
+                <div class="preview-avatar-wrap">
+                    <a href="${cleanUrl}" target="_blank" class="preview-avatar-link" title="${frappe.utils.escape_html(
+                        __("Click to view full image")
+                    )}">
+                        <img
+                            src="${cleanUrl}"
+                            class="preview-avatar"
+                            alt="${frappe.utils.escape_html(__("Row Image"))}"
+                            loading="lazy"
+                            onerror="this.closest('.preview-avatar-wrap')?.remove();"
+                        />
+                    </a>
+                </div>
+            `;
+        }
+
         // Build popup HTML
         let html = `
             <div class="child-hover-preview"
                 data-row-name="${frappe.utils.escape_html(rowName)}">
+
+                ${avatarHtml}
 
                 <div class="preview-search">
                     <input
@@ -704,8 +793,8 @@
                      data-value="${frappe.utils.escape_html(String(f.raw_value || f.value))}"
                      data-configured="${f.is_configured ? "1" : "0"}"
                      style="${displayStyle}">
-                    <span class="preview-field-label">${frappe.utils.escape_html(String(f.label))}</span>
-                    <strong class="preview-field-value">${valueHtml}</strong>
+                     <span class="preview-field-label">${frappe.utils.escape_html(String(f.label))}</span>
+                     <strong class="preview-field-value">${valueHtml}</strong>
                 </div>
             `;
         });
@@ -720,8 +809,8 @@
         const popup = document.querySelector(".child-hover-preview");
         const searchInput = popup.querySelector(".preview-search-input");
 
-        // Ensure all images inside popup are strictly constrained to 50px x 50px
-        popup.querySelectorAll("img").forEach((img) => {
+        // Ensure list thumbnail images inside popup fields are strictly constrained to 50px x 50px
+        popup.querySelectorAll(".preview-fields img, .preview-thumbnail").forEach((img) => {
             img.style.setProperty("display", "block", "important");
             img.style.setProperty("width", "50px", "important");
             img.style.setProperty("height", "50px", "important");
@@ -731,6 +820,19 @@
             img.style.setProperty("min-height", "50px", "important");
             img.style.setProperty("object-fit", "cover", "important");
             img.style.setProperty("border-radius", "4px", "important");
+        });
+
+        // Ensure top circular avatar image is styled neatly (slightly bigger than 50px list thumbnail)
+        popup.querySelectorAll(".preview-avatar").forEach((img) => {
+            img.style.setProperty("display", "block", "important");
+            img.style.setProperty("width", "64px", "important");
+            img.style.setProperty("height", "64px", "important");
+            img.style.setProperty("max-width", "64px", "important");
+            img.style.setProperty("max-height", "64px", "important");
+            img.style.setProperty("min-width", "64px", "important");
+            img.style.setProperty("min-height", "64px", "important");
+            img.style.setProperty("object-fit", "cover", "important");
+            img.style.setProperty("border-radius", "50%", "important");
         });
 
         // Prevent clicking inside popup from closing it
