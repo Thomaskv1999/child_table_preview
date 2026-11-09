@@ -3,12 +3,21 @@ name = "child_table_preview"
 authors = [
     { name = "Thomas K V", email = "thomaskv@faircodetech.com"}
 ]
-description = "Instant, searchable hover previews for Frappe & ERPNext child tables"
-requires-python = ">=3.14"
+description = "Instant, searchable hover previews for Frappe & ERPNext child tables without horizontal scrolling"
+license = { text = "MIT" }
+requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = [
     # "frappe~=16.0.0" # Installed and managed by bench.
+]
+keywords = [
+    "frappe",
+    "erpnext",
+    "child-table",
+    "hover-preview",
+    "table-preview",
+    "productivity"
 ]
 
 [build-system]

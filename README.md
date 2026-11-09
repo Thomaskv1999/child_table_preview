@@ -1,40 +1,71 @@
-### Child Table Preview
+# Child Table Hover Preview for Frappe & ERPNext
 
-Instant, searchable hover previews for Frappe & ERPNext child tables
+> **Instant, searchable hover previews for ERPNext and Frappe child tables — eliminating the need for constant horizontal scrolling.**
 
-### Installation
+![Child Table Preview Banner](https://raw.githubusercontent.com/frappe/design/master/frappe-framework-logo.png)
+
+---
+
+## ✨ Features
+
+- **⚡ Instant Hover Previews**: Hover over any child table row (e.g. Sales Invoice Item, Sales Order Item, Purchase Order Item) to instantly view all key fields in a clean floating popover.
+- **🔍 Real-Time Keyboard Search**: Resting your mouse on any table row automatically activates the search bar — start typing immediately to search across all fields, labels, and values without clicking.
+- **🖼️ 50×50px Thumbnail Renderer**: Automatically detects image fields (`Attach Image`, `Attach`, image URLs) and renders neat, compact thumbnails with zoom-on-click support.
+- **📱 Touch & Mobile Guard**: Automatically disables hover popups on mobile devices and coarse touchscreens, preserving native touch-to-edit behavior.
+- **🛡️ Field Permission Filtering**: Respects Frappe's field-level permissions (`permlevel > 0`), ensuring users never see fields they aren't authorized to view.
+- **📐 Smart Viewport Positioning**: Automatically calculates available screen space on all four sides. If a table spans edge-to-edge, the preview intelligently floats above or below the row instead of covering row data.
+- **🎨 Native Frappe Theming**: Utilizes standard Frappe CSS variables with complete fallbacks (`--card-bg`, `--border-color`, `--text-muted`), rendering seamlessly across Frappe Light Mode, Dark Mode, and custom themes.
+- **🚀 Out-of-the-Box ERPNext Defaults**: Ships with pre-configured rules for standard ERPNext child tables (Sales Order, Sales Invoice, Purchase Order, Quotation, Delivery Note, Purchase Receipt, BOM, Stock Entry).
+
+---
+
+## 📦 Installation
 
 You can install this app using the [bench](https://github.com/frappe/bench) CLI:
 
 ```bash
 cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch version-16
-bench install-app child_table_preview
+bench get-app https://github.com/your-org/child_table_preview
+bench --site [your-site-name] install-app child_table_preview
+bench --site [your-site-name] clear-cache
 ```
 
-### Contributing
+---
 
-This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:
+## ⚙️ Configuration
 
-```bash
-cd apps/child_table_preview
-pre-commit install
-```
+1. In Frappe Desk, search for **Child Table Preview Settings** in the Awesomebar.
+2. Enable the feature toggle: **Enable Hover Preview**.
+3. Click **Load Standard Defaults** to automatically populate rules for all standard ERPNext tables on your site.
+4. To customize fields for any child table:
+   - Click **Select Fields** on the rule row.
+   - Use the live search and multiselect checkboxes to choose exactly which fields to show.
+   - Save the settings. All connected browser tabs refresh their rules in real time.
 
-Pre-commit is configured to use the following tools for checking and formatting your code:
+---
 
-- ruff
-- eslint
-- prettier
-- pyupgrade
-### CI
+## 🛠️ Supported Child Tables (Out of the Box)
 
-This app can use GitHub Actions for CI. The following workflows are configured:
+- **Sales Order Item** (`Sales Order`)
+- **Sales Invoice Item** (`Sales Invoice`)
+- **Purchase Order Item** (`Purchase Order`)
+- **Quotation Item** (`Quotation`)
+- **Delivery Note Item** (`Delivery Note`)
+- **Purchase Receipt Item** (`Purchase Receipt`)
+- **BOM Item** (`BOM`)
+- **Stock Entry Detail** (`Stock Entry`)
+- *Supports any custom Child DocType in any custom app!*
 
-- CI: Installs this app and runs unit tests on every push to `develop` branch.
-- Linters: Runs [Frappe Semgrep Rules](https://github.com/frappe/semgrep-rules) and [pip-audit](https://pypi.org/project/pip-audit/) on every pull request.
+---
 
+## 🌐 Compatibility
 
-### License
+- **Frappe Framework**: v14.x, v15.x, v16.x
+- **Python**: 3.10, 3.11, 3.12, 3.14
+- **Browsers**: Chrome, Firefox, Safari, Edge
 
-mit
+---
+
+## 📄 License
+
+MIT License. See [license.txt](license.txt) for details.

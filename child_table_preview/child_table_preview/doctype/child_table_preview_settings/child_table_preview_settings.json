@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "creation": "2026-11-05 11:50:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "preview_rules"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enable Hover Preview"
+  },
+  {
+   "description": "Select any child table and choose which fields to display in the hover preview.",
+   "fieldname": "preview_rules",
+   "fieldtype": "Table",
+   "label": "Child Table Preview Rules",
+   "options": "Child Table Preview Rule"
+  }
+ ],
+ "grid_page_length": 50,
+ "icon": "fa fa-sliders",
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-11-05 11:50:00.000000",
+ "modified_by": "Administrator",
+ "module": "Child Table Preview",
+ "name": "Child Table Preview Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

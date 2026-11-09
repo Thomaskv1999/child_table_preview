@@ -34,8 +34,8 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/child_table_preview/css/child_table_preview.css"
-# app_include_js = "/assets/child_table_preview/js/child_table_preview.js"
+app_include_css = "/assets/child_table_preview/css/child_table_preview.css"
+app_include_js = "/assets/child_table_preview/js/child_table_preview.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/child_table_preview/css/child_table_preview.css"
