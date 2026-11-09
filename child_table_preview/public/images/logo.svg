@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Brand Accent Gradient -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+
+    <!-- Card Gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+
+    <!-- Card Shadow -->
+    <filter id="shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#38bdf8" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Base App Squircle -->
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#bgGrad)" />
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3" />
+
+  <!-- Background Data Table Representation -->
+  <g opacity="0.85" transform="translate(64, 80)">
+    <!-- Table Container -->
+    <rect x="0" y="0" width="384" height="340" rx="20" fill="#1e293b" stroke="rgba(255,255,255,0.06)" stroke-width="2" />
+
+    <!-- Table Header -->
+    <path d="M 0 20 Q 0 0 20 0 L 364 0 Q 384 0 384 20 L 384 56 L 0 56 Z" fill="#334155" />
+    <rect x="24" y="22" width="70" height="12" rx="6" fill="#94a3b8" />
+    <rect x="114" y="22" width="110" height="12" rx="6" fill="#64748b" />
+    <rect x="250" y="22" width="80" height="12" rx="6" fill="#64748b" />
+
+    <!-- Table Row 1 (Normal) -->
+    <line x1="0" y1="112" x2="384" y2="112" stroke="#334155" stroke-width="1.5" />
+    <rect x="24" y="78" width="55" height="12" rx="6" fill="#cbd5e1" opacity="0.6" />
+    <rect x="114" y="78" width="95" height="12" rx="6" fill="#64748b" opacity="0.5" />
+    <rect x="250" y="78" width="60" height="12" rx="6" fill="#64748b" opacity="0.5" />
+
+    <!-- Table Row 2 (Hovered / Active Row Highlight) -->
+    <rect x="6" y="118" width="372" height="64" rx="12" fill="rgba(56, 189, 248, 0.12)" stroke="#38bdf8" stroke-width="2" filter="url(#glow)" />
+    <rect x="24" y="144" width="75" height="12" rx="6" fill="#38bdf8" />
+    <rect x="114" y="144" width="120" height="12" rx="6" fill="#e2e8f0" />
+    <rect x="250" y="144" width="65" height="12" rx="6" fill="#94a3b8" />
+
+    <!-- Table Row 3 (Normal) -->
+    <line x1="0" y1="240" x2="384" y2="240" stroke="#334155" stroke-width="1.5" />
+    <rect x="24" y="202" width="60" height="12" rx="6" fill="#cbd5e1" opacity="0.4" />
+    <rect x="114" y="202" width="85" height="12" rx="6" fill="#64748b" opacity="0.3" />
+    <rect x="250" y="202" width="50" height="12" rx="6" fill="#64748b" opacity="0.3" />
+  </g>
+
+  <!-- Floating Hover Preview Card (The Hero element) -->
+  <g transform="translate(200, 155)" filter="url(#shadow)">
+    <!-- Card Frame -->
+    <rect x="0" y="0" width="230" height="275" rx="18" fill="url(#cardGrad)" stroke="#cbd5e1" stroke-width="1.5" />
+
+    <!-- Top Circular Avatar / Image Badge -->
+    <circle cx="115" cy="52" r="32" fill="url(#accentGrad)" />
+    <!-- Image Icon inside Avatar -->
+    <path d="M 100 62 L 108 52 L 118 64 L 124 57 L 132 67 L 98 67 Z" fill="#ffffff" opacity="0.95" />
+    <circle cx="106" cy="43" r="4" fill="#ffffff" opacity="0.95" />
+    <circle cx="115" cy="52" r="32" fill="none" stroke="#e2e8f0" stroke-width="3" />
+
+    <!-- Search Bar in Preview -->
+    <rect x="20" y="96" width="190" height="26" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1" />
+    <!-- Magnifying Glass Icon -->
+    <circle cx="34" cy="109" r="4.5" fill="none" stroke="#64748b" stroke-width="1.8" />
+    <line x1="37.5" y1="112.5" x2="42" y2="117" stroke="#64748b" stroke-width="1.8" stroke-linecap="round" />
+    <rect x="48" y="106" width="55" height="6" rx="3" fill="#94a3b8" />
+
+    <!-- Field Lines in Preview -->
+    <!-- Field 1 -->
+    <rect x="22" y="138" width="60" height="6" rx="3" fill="#94a3b8" />
+    <rect x="22" y="148" width="130" height="8" rx="4" fill="#0f172a" />
+
+    <!-- Field 2 -->
+    <rect x="22" y="170" width="45" height="6" rx="3" fill="#94a3b8" />
+    <rect x="22" y="180" width="95" height="8" rx="4" fill="#0f172a" />
+
+    <!-- Field 3 -->
+    <rect x="22" y="202" width="70" height="6" rx="3" fill="#94a3b8" />
+    <rect x="22" y="212" width="150" height="8" rx="4" fill="#0f172a" />
+
+    <!-- Micro Scrollbar on right -->
+    <rect x="216" y="136" width="4" height="90" rx="2" fill="#e2e8f0" />
+    <rect x="216" y="142" width="4" height="32" rx="2" fill="#38bdf8" />
+  </g>
+</svg>

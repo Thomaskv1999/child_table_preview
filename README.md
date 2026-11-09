@@ -1,8 +1,10 @@
+<p align="center">
+  <img src="child_table_preview/public/images/logo.png" alt="Child Table Preview Logo" width="140" height="140" style="border-radius: 28px;" />
+</p>
+
 # Child Table Hover Preview for Frappe & ERPNext
 
 > **Instant, searchable hover previews for ERPNext and Frappe child tables — eliminating the need for constant horizontal scrolling.**
-
-![Child Table Preview Banner](https://raw.githubusercontent.com/frappe/design/master/frappe-framework-logo.png)
 
 ---
 

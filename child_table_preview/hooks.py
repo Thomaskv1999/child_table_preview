@@ -4,6 +4,7 @@ app_publisher = "Thomas K V"
 app_description = "Instant, searchable hover previews for Frappe & ERPNext child tables"
 app_email = "thomaskv@faircodetech.com"
 app_license = "mit"
+app_logo_url = "/assets/child_table_preview/logo.png"
 
 # Apps
 # ------------------
