@@ -27,7 +27,7 @@ You can install this app using the [bench](https://github.com/frappe/bench) CLI:
 
 ```bash
 cd $PATH_TO_YOUR_BENCH
-bench get-app https://github.com/your-org/child_table_preview
+bench get-app https://github.com/Thomaskv1999/child_table_preview
 bench --site [your-site-name] install-app child_table_preview
 bench --site [your-site-name] clear-cache
 ```
